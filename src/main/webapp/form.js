@@ -1,3 +1,23 @@
+function toggleAll(source) {
+    checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] !== source)
+            checkboxes[i].checked = source.checked;
+    }
+}
+
+function uncheckAll() {
+    document.getElementById('search_all').checked = false;
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        if (checkbox.id !== 'search_all') {
+            checkbox.addEventListener('click', uncheckAll);
+        }
+    });
+});
+
 function confirmLogin() {
     if(document.login_form.email.value === ""){
         alert("이메일을 입력하세요.");
