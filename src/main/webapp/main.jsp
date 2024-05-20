@@ -8,6 +8,8 @@
 <body>
 <h2><%= session.getAttribute("name")%>님 안녕하세요</h2>
 <p><%= session.getAttribute("email")%></p>
+<br>
+<button onclick="location.href='select_user_reservation.jsp?userId=<%=(Integer)session.getAttribute("userId")%>'">예약정보</button>
 
 <button onclick="location.href='logout.jsp'">로그아웃</button>
 <button onclick="location.href='edit_user.jsp'">회원정보 수정</button>
@@ -32,7 +34,19 @@
     <br>
 
     <h2>[상세 조회 검색] </h2>
-    <h4>✅ 체크박스를 활용하여 원하는 검색을 해주세😀</h4>
+    <h4>✅ 체크박스를 클릭하여 원하는 조건으로 검색하세요😀</h4>
+
+    <h3> 📌예약 가능일 검색</h3>
+    <input type="checkbox" name="search_detail" value="available_date" checked>
+    체크인 날짜: <input type="date" name="checkin_date">
+    체크아웃 날짜: <input type="date" name="checkout_date">
+    <br>
+
+    <h3> 📌인원 수 검색</h3>
+    <input type="checkbox" name="search_detail" value="guests" checked>
+    인원 수: <input type="number" name="guests" value = "2">
+    <br>
+
     <h3> 📌위치로 검색</h3>
     <input type="checkbox" name="search_detail" value="location">
     위치: <input type="text" name="location" >
@@ -64,8 +78,8 @@
     <br>
 
     <h3> 📌평점으로 검색</h3>
-    평점:
     <input type="checkbox" name="search_detail" value="rating">
+    평점:
     <select name="rating" >
         <option value="0">0 이상</option>
         <option value="0.5">0.5 이상</option>

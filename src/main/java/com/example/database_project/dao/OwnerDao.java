@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OwnerDao {
     public static int OWNER_EXISTENT = 1;
@@ -122,6 +124,46 @@ public class OwnerDao {
         return rt;
     }
 
+    public List<OwnerDto> getAllOwners() {
+        List<OwnerDto> owners = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String query = "SELECT * FROM Owners";
+
+        try {
+            conn = DBManager.getConnection();
+
+            if (conn == null) return owners;
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                OwnerDto owner = new OwnerDto(
+                        rs.getInt("ownerid"),
+                        rs.getString("ownerName"),
+                        rs.getString("password"),
+                        rs.getString("licenseNum"),
+                        rs.getString("email"),
+                        rs.getString("phone")
+                );
+                owners.add(owner);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return owners;
+    }
+
 
     public OwnerDto getOwner(String email) {
         int rt = 0;
@@ -192,6 +234,39 @@ public class OwnerDao {
         }
         return false;
     }
+
+    public boolean updateAdminOwner(OwnerDto owner, String email) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE Owners SET licenseNum = ?, email = ?, ownername = ?, password = ?, phone = ? WHERE email = ?";
+
+        try {
+            conn = DBManager.getConnection();
+            if (conn == null)
+                return false;
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, owner.getLicenseNum());
+            pstmt.setString(2, owner.getEmail());
+            pstmt.setString(3, owner.getOwnerName());
+            pstmt.setString(4, owner.getPassword());
+            pstmt.setString(5, owner.getPhone());
+            pstmt.setString(6, email);
+            return pstmt.executeUpdate() > 0 ;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 
     public boolean updatePassword(OwnerDto owner, String email) {
 

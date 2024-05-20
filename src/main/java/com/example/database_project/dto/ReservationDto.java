@@ -1,21 +1,38 @@
 package com.example.database_project.dto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 
 public class ReservationDto {
     private int reservationId;
     private int roomId;
-    private String roomType;
+    private int userId;
     private Date checkInDate;
     private Date checkOutDate;
     private int guests;
     private String payment;
 
+
+    private String roomType;
+    private String accommodationname;
     private String userName;
     private String userEmail;
     private String userPhone;
+
+    private int price;
+
+    public ReservationDto(int reservationId, int roomId, int userId,  String userName, String accommodationname, String roomType, int price, Date checkInDate, Date checkOutDate, int guests, String payment) {
+        this.reservationId = reservationId;
+        this.roomId = roomId;
+        this.userId = userId;
+        this.price = price;
+        this.accommodationname = accommodationname;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.guests = guests;
+        this.payment = payment;
+        this.roomType = roomType;
+        this.userName = userName;
+    }
 
     public ReservationDto(int reservationId, int roomId, String roomType, Date checkInDate, Date checkOutDate, int guests, String payment, String userName, String userEmail, String userPhone) {
         this.reservationId = reservationId;
@@ -28,6 +45,36 @@ public class ReservationDto {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
+    }
+
+    public ReservationDto(int reservationId, int roomId, int userId, Date checkInDate, Date checkOutDate, int guests, String payment) {
+        this.reservationId = reservationId;
+        this.roomId = roomId;
+        this.userId = userId;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.guests = guests;
+        this.payment = payment;
+    }
+
+    public ReservationDto() {
+
+    }
+
+    public ReservationDto(int reservationId, Date checkInDate, Date checkOutDate, int guests, String payment) {
+        this.reservationId = reservationId;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.guests = guests;
+        this.payment = payment;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public void setPayment(String payment) {
@@ -109,4 +156,20 @@ public class ReservationDto {
     public String getPayment() { return payment;}
 
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getAccommodationname() {
+        return accommodationname;
+    }
+
+    public void setAccommodationname(String accommodationname) {
+        this.accommodationname = accommodationname;
+    }
 }
+

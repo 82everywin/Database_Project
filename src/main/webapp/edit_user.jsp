@@ -2,9 +2,10 @@
 <%@ page import="com.example.database_project.dto.UserDto" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%
+    request.setCharacterEncoding("utf-8");
     String email = (String) session.getAttribute("email");
-    if (email == null) {
-        // 로그인 상태가 아니면 로그인 페이지로 리다이렉트
+    
+    if (email == null ) {
         response.sendRedirect("login.jsp");
         return;
     }

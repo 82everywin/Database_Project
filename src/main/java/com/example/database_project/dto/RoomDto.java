@@ -4,25 +4,37 @@ public class RoomDto {
     private int roomId;
     private int accommodationId;
     private String roomType;
+
+    private int count;
     private int roomCount;
     private int price;
     private boolean availability;
 
-    public RoomDto(int roomId, int accommodationId, String roomType, int roomCount, int price, boolean availability) {
+    public RoomDto(int roomId, int accommodationId, String roomType, int count, int roomCount, int price, boolean availability) {
         this.roomId = roomId;
         this.accommodationId = accommodationId;
         this.roomType = roomType;
+        this.count = count;
         this.roomCount = roomCount;
         this.price = price;
         this.availability = availability;
     }
 
-    public RoomDto(int roomId, String roomType, int roomCount, int price, boolean availability) {
+    public RoomDto(int roomId, String roomType, int count, int roomCount, int price, boolean availability) {
         this.roomId = roomId;
         this.roomType = roomType;
+        this.count = count;
         this.roomCount = roomCount;
         this.price = price;
         this.availability = availability;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public RoomDto() {

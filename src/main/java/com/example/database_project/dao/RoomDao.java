@@ -20,7 +20,8 @@ public class RoomDao {
     public boolean insertRoom(RoomDto room) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String sql = "INSERT INTO Rooms (AccommodationID, RoomType, RoomCount, Price, Availability) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO" +
+                " Rooms (AccommodationID, RoomType, Count, RoomCount, Price, Availability) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             conn = DBManager.getConnection();
@@ -29,9 +30,10 @@ public class RoomDao {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, room.getAccommodationId());
             pstmt.setString(2, room.getRoomType());
-            pstmt.setInt(3, room.getRoomCount());
-            pstmt.setInt(4, room.getPrice());
-            pstmt.setBoolean(5, room.isAvailability());
+            pstmt.setInt(3, room.getCount());
+            pstmt.setInt(4, room.getRoomCount());
+            pstmt.setInt(5, room.getPrice());
+            pstmt.setBoolean(6, room.isAvailability());
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -47,6 +49,37 @@ public class RoomDao {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<RoomDto> getAllRooms() {
+        List<RoomDto> rooms = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT * FROM Rooms";
+
+        try {
+                conn = DBManager.getConnection();
+                pstmt = conn.prepareStatement(sql);
+                rs = pstmt.executeQuery() ;
+
+                while (rs.next()) {
+                    RoomDto room = new RoomDto(
+                            rs.getInt("RoomID"),
+                            rs.getInt("AccommodationID"),
+                            rs.getString("RoomType"),
+                            rs.getInt("Count"),
+                            rs.getInt("RoomCount"),
+                            rs.getInt("Price"),
+                            rs.getBoolean("Availability")
+                      );
+                    rooms.add(room);
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rooms;
     }
 
     public List<RoomDto> getRoomsByAccommodationId(int id) {
@@ -67,6 +100,7 @@ public class RoomDao {
                         rs.getInt("RoomID"),
                         rs.getInt("AccommodationID"),
                         rs.getString("RoomType"),
+                        rs.getInt("Count"),
                         rs.getInt("RoomCount"),
                         rs.getInt("Price"),
                         rs.getBoolean("Availability")
@@ -145,6 +179,8 @@ public class RoomDao {
         return accommodationDtoList;
     }
 
+
+
     public RoomDto getRoomById(int roomId) {
         RoomDto room = null;
         Connection conn = null;
@@ -164,6 +200,7 @@ public class RoomDao {
                         rs.getInt("RoomID"),
                         rs.getInt("AccommodationID"),
                         rs.getString("RoomType"),
+                        rs.getInt("Count"),
                         rs.getInt("RoomCount"),
                         rs.getInt("Price"),
                         rs.getBoolean("Availability")
@@ -194,17 +231,18 @@ public class RoomDao {
     public boolean updateRoom(RoomDto room) {
         Connection conn = null;
         PreparedStatement pstmt = null;
-        String sql = "UPDATE Rooms SET RoomType = ?, RoomCount = ?, Price = ?, Availability = ? WHERE RoomID = ?";
+        String sql = "UPDATE Rooms SET RoomType = ?, Count = ?, RoomCount = ?, Price = ?, Availability = ? WHERE RoomID = ?";
 
         try {
             conn = DBManager.getConnection();
             if (conn == null) return false;
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, room.getRoomType());
-            pstmt.setInt(2, room.getRoomCount());
-            pstmt.setInt(3, room.getPrice());
-            pstmt.setBoolean(4, room.isAvailability());
-            pstmt.setInt(5, room.getRoomId());
+            pstmt.setInt(2,room.getCount());
+            pstmt.setInt(3, room.getRoomCount());
+            pstmt.setInt(4, room.getPrice());
+            pstmt.setBoolean(5, room.isAvailability());
+            pstmt.setInt(6, room.getRoomId());
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
 

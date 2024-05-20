@@ -26,11 +26,11 @@
     if (success) {
 %>
 <script>
-    alert('객실 정보가 성공적으로 추가되었습니다.');
+    alert('숙소 정보가 성공적으로 추가되었습니다.');
     window.location.href = 'owner_rooms.jsp';
 </script>
 <%
     } else {
-        System.out.println("<script>alert('객실 정보 추가에 실패했습니다. 다시 시도해주세요.'); history.back();</script>");
+        System.out.println("<script>alert('숙소 정보 추가에 실패했습니다. 다시 시도해주세요.'); history.back();</script>");
     }
 %>

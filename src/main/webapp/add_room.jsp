@@ -18,6 +18,10 @@
             <td><input type="text" name="roomType" required></td>
         </tr>
         <tr>
+            <td>허용 인원 수(Count):</td>
+            <td><input type="number" name="count" required></td>
+        </tr>
+        <tr>
             <td>객실 수(Room Count):</td>
             <td><input type="number" name="roomCount" required></td>
         </tr>

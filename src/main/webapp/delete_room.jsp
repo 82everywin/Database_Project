@@ -2,7 +2,6 @@
 <%@ page import="com.example.database_project.dao.RoomDao" %>
 <%
     int roomId = Integer.parseInt(request.getParameter("roomId"));
-    int accommodationId = Integer.parseInt(request.getParameter("accommodationId"));
 
     RoomDao roomDao = RoomDao.getInstance();
     boolean success = roomDao.deleteRoom(roomId);

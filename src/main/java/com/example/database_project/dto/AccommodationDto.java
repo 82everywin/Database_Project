@@ -32,6 +32,15 @@ public class AccommodationDto {
 
     }
 
+    public AccommodationDto(int accommodationId, String category, String accommodationName, String location, String grade, float rating) {
+        this.accommodationId = accommodationId;
+        this.category = category;
+        this.accommodationName = accommodationName;
+        this.location = location;
+        this.grade = grade;
+        this.rating = rating;
+    }
+
     public int getAccommodationId() {
         return accommodationId;
     }

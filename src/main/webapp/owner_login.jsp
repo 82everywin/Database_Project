@@ -6,7 +6,7 @@
 
 </head>
 <body>
-<h2>관리자 로그인 페이지</h2>
+<h2>대표님 로그인 페이지</h2>
 <form action="owner_login_process.jsp" method="post" name="owner_login_form">
     <table>
         <tr>
@@ -28,7 +28,7 @@
     </table>
     <br/>
     <button type="button" onclick="confirmLogin()">로그인</button>
-    <button type="button" onclick="location.href='join_owner.jsp'">업주 회원 가입</button>
+    <button type="button" onclick="location.href='join_owner.jsp'">회원 가입</button>
 </form>
 
 </body>

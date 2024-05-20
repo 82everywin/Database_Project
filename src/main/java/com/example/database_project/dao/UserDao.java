@@ -4,6 +4,9 @@ import com.example.database_project.DBManager;
 import com.example.database_project.dto.UserDto;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDao {
 
     public static int USER_EXISTENT = 1;
@@ -116,6 +119,68 @@ public class UserDao {
         return rt;
     }
 
+    public List<UserDto> getAllUsers() {
+        List<UserDto> users = new ArrayList<>();
+        String query = "SELECT * FROM Users";
+        try {Connection conn = DBManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                UserDto user = new UserDto(
+                        rs.getInt("UserID"),
+                        rs.getString("UserName"),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getString("Phone")
+                );
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public UserDto getUserById(int userId) {
+        int rt = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        UserDto user = null;
+
+        String query = "SELECT * FROM Users WHERE UserID = ?";
+
+        try {
+            conn = DBManager.getConnection();
+
+            if (conn == null) return user;
+
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, userId);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                user = new UserDto(rs.getInt("userid"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("phone")
+                );
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
 
     public UserDto getUser(String email) {
         int rt = 0;
@@ -186,6 +251,7 @@ public class UserDao {
         }
         return false;
     }
+
 
     public boolean updatePassword(UserDto user, String email) {
 

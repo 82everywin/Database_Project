@@ -6,6 +6,7 @@
 
     int accommodationId = Integer.parseInt(request.getParameter("accommodationId"));
     String roomType = request.getParameter("roomType");
+    int count = Integer.parseInt(request.getParameter("count"));
     int roomCount = Integer.parseInt(request.getParameter("roomCount"));
     int price = Integer.parseInt(request.getParameter("price"));
     boolean availability = Boolean.parseBoolean(request.getParameter("availability"));
@@ -13,6 +14,7 @@
     RoomDto room = new RoomDto();
     room.setAccommodationId(accommodationId);
     room.setRoomType(roomType);
+    room.setCount(count);
     room.setRoomCount(roomCount);
     room.setPrice(price);
     room.setAvailability(availability);
@@ -26,7 +28,6 @@
         <script>
             alert('객실정보가 성공적으로 추가되었습니다.');
             window.location.href = 'owner_rooms.jsp';
-           // window.location.href = 'load_rooms.jsp?accommodationId='+<%= accommodationId %>;
         </script>
 <%
 } else {

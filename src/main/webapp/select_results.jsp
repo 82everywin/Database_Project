@@ -4,11 +4,16 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%
+    Integer userId = (Integer)session.getAttribute("userId");
+
     Connection conn = DBManager.getConnection();
     PreparedStatement pstmt = null;
     ResultSet rs = null;
 
     String searchType = request.getParameter("search_type");
+
+    int accommodationId = -1;
+    int roomId = -1;
 %>
 <!DOCTYPE html>
 <html>
@@ -17,20 +22,16 @@
     <title>검색 결과</title>
     <style>
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
         }
         th, td {
-            border: 1px solid black;
-            text-align: center;
             padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
         }
         th {
             background-color: #f2f2f2;
-        }
-        button {
-            padding: 5px 10px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -40,11 +41,12 @@
 <%
     try {
         if ("detail".equals(searchType)){
-            StringBuilder sql = new StringBuilder("SELECT a.category, a.accommodationname, " +
+            StringBuilder sql = new StringBuilder("SELECT a.accommodationid, a.category, a.accommodationname, " +
                     "a.grade, a.rating, a.location, " +
-                    "r.roomtype, r.roomcount, r.price " +
+                    "r.roomid, r.roomtype, r.count, r.roomcount, r.price, ad.date " +
                     "FROM Accommodations a " +
                     "JOIN Rooms r ON a.accommodationid = r.accommodationid " +
+                    "LEFT JOIN AvailableDates ad ON r.roomid = ad.roomid " +
                     "WHERE r.availability = TRUE ");
 
             List<String> conditions = new ArrayList<>();
@@ -94,6 +96,47 @@
                                 params.add(rating);
                             }
                             break;
+                        case "available_date":
+                            String checkinDateStr = request.getParameter("checkin_date");
+                            String checkoutDateStr = request.getParameter("checkout_date");
+                            if (checkinDateStr != null && !checkinDateStr.isEmpty() && checkoutDateStr != null && !checkoutDateStr.isEmpty()) {
+                                Date checkinDate = Date.valueOf(checkinDateStr);
+                                Date checkoutDate = Date.valueOf(checkoutDateStr);
+                                conditions.add(
+                                        "ad.date BETWEEN ? AND ? " +
+                                        "AND ad.isavailable = TRUE " +
+                                        "AND NOT EXISTS (" +
+                                        "SELECT 1 " +
+                                        "FROM Reservations res " +
+                                        "WHERE res.roomid = r.roomid " +
+                                        "AND (" +
+                                        "(res.checkindate BETWEEN ? AND ?) " +
+                                        "OR " +
+                                        "(res.checkoutdate BETWEEN ? AND ?) " +
+                                        "OR " +
+                                        "(? BETWEEN res.checkindate AND res.checkoutdate) " +
+                                        "OR " +
+                                        "(? BETWEEN res.checkindate AND res.checkoutdate)" +
+                                        ")" +
+                                        ")");
+                                params.add(checkinDate);
+                                params.add(checkoutDate);
+                                params.add(checkoutDate);
+                                params.add(checkinDate);
+                                params.add(checkoutDate);
+                                params.add(checkinDate);
+                                params.add(checkoutDate);
+                                params.add(checkinDate);
+                            }
+                            break;
+                        case "guests":
+                            String guestsStr = request.getParameter("guests");
+                            if (guestsStr != null && !guestsStr.isEmpty()) {
+                                int guests = Integer.parseInt(guestsStr);
+                                conditions.add("r.count >= ?");
+                                params.add(guests);
+                            }
+                            break;
                     }
                 }
             }
@@ -122,62 +165,75 @@
             String sortColumn = "";
             String sortDirection = "";
 
-            if (choiceOrder.equals("price")){
-                if(choiceHighLow.equals("asc")){
-                    sortColumn = "r.price";
-                    sortDirection = "ASC";
-                }else{
-                    sortColumn = "r.price";
-                    sortDirection = "DESC";
-                }
-            }else{
-                if(choiceHighLow.equals("asc")){
-                    sortColumn = "a.rating";
-                    sortDirection = "ASC";
-                }else{
-                    sortColumn = "a.rating";
-                    sortDirection = "DESC";
-                }
+            if (choiceOrder.equals("price")) {
+                sortColumn = "r.price";
+                sortDirection = choiceHighLow.equals("asc") ? "ASC" : "DESC";
+            } else if (choiceOrder.equals("rating")) {
+                sortColumn = "a.rating";
+                sortDirection = choiceHighLow.equals("asc") ? "ASC" : "DESC";
             }
 
-            String sql = "SELECT a.category, a.accommodationname, a.grade, a.rating, a.location, " +
-                    "r.roomtype, r.roomcount, r.price " +
+            String sql = "SELECT a.accommodationid, a.category, a.accommodationname, a.grade, a.rating, a.location, " +
+                    "r.roomId, r.roomtype, r.count, r.roomcount, r.price, ad.date " +
                     "FROM Accommodations a " +
                     "JOIN Rooms r ON a.accommodationid = r.accommodationid " +
+                    "LEFT JOIN AvailableDates ad ON r.roomID = ad.roomID " +
                     "WHERE r.availability = TRUE " +
+                    "AND ad.isavailable = TRUE " +
                     "ORDER BY " + sortColumn + " " + sortDirection;
 
             pstmt = conn.prepareStatement(sql);
         }
 
         rs = pstmt.executeQuery();
+
+        boolean hasResults = rs.isBeforeFirst();  // 데이터가 있는지 확인
 %>
-<table>
-    <tr>
-        <th>종류</th>
-        <th>숙박업소 이름</th>
-        <th>성급</th>
-        <th>방 타입</th>
-        <th>잔여 객실 수</th>
-        <th>가격</th>
-        <th>위치</th>
-        <th>평점</th>
-        <th>예약</th>
-    </tr>
+<%
+    if (hasResults) {
+%>
+        <table>
+            <tr>
+                <th>종류</th>
+                <th>숙박업소 이름</th>
+                <th>성급</th>
+                <th>방 타입</th>
+                <th>허용 인원</th>
+                <th>예약 가능 일자</th>
+                <th>잔여 객실 수</th>
+                <th>가격</th>
+                <th>위치</th>
+                <th>평점</th>
+                <th>예약</th>
+            </tr>
+            <%
+                while (rs.next()) {
+                    accommodationId = rs.getInt("accommodationid");
+                    roomId = rs.getInt("roomid");
+            %>
+            <tr>
+                <td><%= rs.getString("category") %></td>
+                <td><%= rs.getString("accommodationname") %></td>
+                <td><%= rs.getString("grade") != null ? rs.getString("grade") : "-" %></td>
+                <td><%= rs.getString("roomtype") != null ? rs.getString("roomtype") : "-" %></td>
+                <td><%= rs.getInt("count") %></td>
+                <td><%= rs.getDate("date")%></td>
+                <td><%= rs.getInt("roomcount") %></td>
+                <td><%= rs.getString("price") %></td>
+                <td><%= rs.getString("location") %></td>
+                <td><%= rs.getDouble("rating") %></td>
+                <td>
+                    <a href="add_reservation.jsp?userId=<%= userId %>&accommodationId=<%= accommodationId %>&roomId=<%= roomId %>"><button>예약하기</button></a>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
     <%
-        while (rs.next()) {
+    } else {
     %>
-    <tr>
-        <td><%= rs.getString("category") %></td>
-        <td><%= rs.getString("accommodationname") %></td>
-        <td><%= rs.getString("grade") != null ? rs.getString("grade") : "-" %></td>
-        <td><%= rs.getString("roomtype") != null ? rs.getString("roomtype") : "-" %></td>
-        <td><%= rs.getInt("roomcount") %></td>
-        <td><%= rs.getString("price") %></td>
-        <td><%= rs.getString("location") %></td>
-        <td><%= rs.getDouble("rating") %></td>
-        <td><button onclick="">예약하기</button></td>
-    </tr>
+    <p>죄송합니다. 검색 조건과 일치하는 검색 결과가 존재하지 않습니다.</p>
     <%
             }
         } catch (Exception e) {
@@ -192,6 +248,5 @@
             }
         }
     %>
-</table>
 </body>
 </html>

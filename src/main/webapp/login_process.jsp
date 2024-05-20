@@ -31,10 +31,11 @@
 </script>
 <%
         } else {
-        session.setAttribute("name", user.getUsername());
-        session.setAttribute("email", user.getEmail());
-        session.setAttribute("isLogin", true);
-        response.sendRedirect("main.jsp");
+          session.setAttribute("userId", user.getUserId());
+          session.setAttribute("name", user.getUsername());
+          session.setAttribute("email", user.getEmail());
+          session.setAttribute("isLogin", true);
+          response.sendRedirect("main.jsp");
 
         }
     }

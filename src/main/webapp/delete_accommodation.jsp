@@ -16,7 +16,7 @@
     } else {
 %>
 <script>
-    alert('객실 삭제에 실패했습니다. 다시 시도해주세요.');
+    alert('숙소 삭제에 실패했습니다. 다시 시도해주세요.');
     history.back();
 </script>
 <%

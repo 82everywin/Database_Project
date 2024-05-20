@@ -13,9 +13,9 @@
     RoomDto room = new RoomDto(roomId, roomType, roomCount, price, availability);
     RoomDao roomDao = RoomDao.getInstance();
 
-    boolean isSuccess = roomDao.updateRoom(room);
+    boolean success = roomDao.updateRoom(room);
 
-    if (isSuccess) {
+    if (success) {
 %>
 <script>
     alert('객실 정보가 성공적으로 업데이트되었습니다.');

@@ -10,12 +10,76 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21b98935-c54c-4f3a-9440-6e513928ad4e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_login.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/DateDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/DateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/add_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_add_accommodation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_add_availabledate.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_add_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_add_room.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_delete_accommodation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_delete_availabledate.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_delete_owner.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_delete_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_delete_room.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_delete_user.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_edit_accommodation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_edit_availabledate.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_edit_owner.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_edit_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_edit_room.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_edit_user.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_insert_accommodation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_insert_availabledate.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_insert_owner.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_insert_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_insert_room.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_insert_user.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_join_owner.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_join_user.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_update_accommodation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_update_availabledate.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_update_owner.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_update_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_update_room.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/admin_update_user.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/delete_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/edit_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/insert_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_accommodations.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_availabledates.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_owners.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_reservations.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_rooms.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_rooms_accommodationName.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/select_user_reservation.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/update_reservation.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/AccommodationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/AccommodationDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/OwnerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/OwnerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/ReservationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/ReservationDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/RoomDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/AccommodationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/AccommodationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/ReservationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/ReservationDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/RoomDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/database_project/dto/RoomDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add_room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add_room.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin_login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin_login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/delete_accommodation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/delete_accommodation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/delete_room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/delete_room.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit_user.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit_user.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/insert_accommodation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/insert_accommodation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/insert_room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/insert_room.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login_process.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login_process.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/main.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/owner_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/owner_dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/owner_login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/owner_login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/select_results.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/select_results.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/select_users.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/select_users.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/update_accommodation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/update_accommodation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/update_room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/update_room.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +90,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
         <option value="Jsp File" />
       </list>
     </option>
@@ -204,11 +268,28 @@
       <workItem from="1715755937189" duration="11704000" />
       <workItem from="1715776700389" duration="8322000" />
       <workItem from="1715896774739" duration="13393000" />
-      <workItem from="1715938396519" duration="1055000" />
+      <workItem from="1715938396519" duration="7632000" />
+      <workItem from="1715946709115" duration="423000" />
+      <workItem from="1715947154908" duration="28063000" />
+      <workItem from="1716055660490" duration="10263000" />
+      <workItem from="1716068731866" duration="1167000" />
+      <workItem from="1716069902631" duration="14468000" />
+      <workItem from="1716129602541" duration="1151000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/webapp/edit_user.jsp</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

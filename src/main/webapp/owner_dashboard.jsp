@@ -9,10 +9,10 @@
 %>
 <html>
 <head>
-    <title>관리자 메인보드</title>
+    <title>대표 메인보드</title>
 </head>
 <body>
-<h1>관리자 대시보드</h1>
+<h1>대표님 대시보드</h1>
 <h2><%= session.getAttribute("OwnerName")%> 대표님 안녕하세요</h2><br/>
 <p><%= session.getAttribute("email")%></p>
 <br/>

@@ -23,7 +23,8 @@ public class AccommodationDao {
         ResultSet rs = null;
 
 
-        String sql = "INSERT INTO Accommodations (OwnerID, Category, AccommodationName, Location, Grade, Rating) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " +
+                "Accommodations (OwnerID, Category, AccommodationName, Location, Grade, Rating) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             conn = DBManager.getConnection();
@@ -53,6 +54,30 @@ public class AccommodationDao {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<AccommodationDto> getAllAccommodations() {
+        List<AccommodationDto> accommodations = new ArrayList<>();
+        String query = "SELECT * FROM Accommodations";
+        try (Connection conn = DBManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                AccommodationDto accommodation = new AccommodationDto(
+                        rs.getInt("AccommodationID"),
+                        rs.getInt("OwnerID"),
+                        rs.getString("Category"),
+                        rs.getString("AccommodationName"),
+                        rs.getString("Location"),
+                        rs.getString("Grade"),
+                        rs.getFloat("Rating")
+                );
+                accommodations.add(accommodation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accommodations;
     }
 
     public AccommodationDto getAccommodationById(int accommodationId) {
@@ -100,14 +125,14 @@ public class AccommodationDao {
         return accommodationDto;
     }
 
-    public void updateAccommodation(AccommodationDto accommodation) {
+    public boolean updateAccommodation(AccommodationDto accommodation) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         String sql = "UPDATE Accommodations SET Category = ?, AccommodationName = ?, Location = ?, Grade = ? WHERE AccommodationID = ?";
 
         try {
             conn = DBManager.getConnection();
-            if (conn == null) return;
+            if (conn == null) return false;
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, accommodation.getCategory());
             pstmt.setString(2, accommodation.getAccommodationName());
@@ -115,8 +140,10 @@ public class AccommodationDao {
             pstmt.setString(4, accommodation.getGrade());
             pstmt.setInt(5, accommodation.getAccommodationId());
             pstmt.executeUpdate();
+            return  true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
@@ -127,6 +154,39 @@ public class AccommodationDao {
         }
     }
 
+    public boolean updateAccommodationByAdmin(AccommodationDto accommodation) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE Accommodations " +
+                "SET OwnerId = ?, Category = ?, AccommodationName = ?, Location = ?, Grade = ? , Rating = ? " +
+                "WHERE AccommodationID = ?";
+
+        try {
+            conn = DBManager.getConnection();
+            if (conn == null) return false;
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, accommodation.getOwnerId());
+            pstmt.setString(2, accommodation.getCategory());
+            pstmt.setString(3, accommodation.getAccommodationName());
+            pstmt.setString(4, accommodation.getLocation());
+            pstmt.setString(5, accommodation.getGrade());
+            pstmt.setFloat(6, accommodation.getRating());
+            pstmt.setInt(7, accommodation.getAccommodationId());
+            pstmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public boolean deleteAccommodationById(int accommodationId) {
         Connection conn = null;
         PreparedStatement pstmt = null;

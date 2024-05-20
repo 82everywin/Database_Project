@@ -1,10 +1,18 @@
-function toggleAll(source) {
-    checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i] !== source)
-            checkboxes[i].checked = source.checked;
+function validateForm() {
+    const checkinDate = document.forms["searchForm"]["checkin_date"].value;
+    const checkoutDate = document.forms["searchForm"]["checkout_date"].value;
+    const guests = document.forms["searchForm"]["guests"].value;
+    if (!checkinDate || !checkoutDate) {
+        alert("예약 가능일 검색을 위해 체크인 날짜와 체크아웃 날짜를 입력해 주세요.");
+        return false;
     }
+    if (!guests) {
+        alert("인원 수를 입력해 주세요.");
+        return false;
+    }
+    return true;
 }
+
 
 function uncheckAll() {
     document.getElementById('search_all').checked = false;
